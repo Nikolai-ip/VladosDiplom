@@ -1,20 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;using Unity.VisualScripting;
 using UnityEngine;
-
+using Vector3 = UnityEngine.Vector3;
 public class Dot : MonoBehaviour
 {
-    [SerializeField] private double _x;
-    [SerializeField] private double _y;
-    [SerializeField] private double _z;
-    [SerializeField] private float _scale;
-    [SerializeField] private float _radius;
-    private void OnValidate()
+    private Resources.Vector3 _position;
+    public Resources.Vector3 GetPosition()=> _position;
+    private Dot _referenceDot;
+    public event Action<Dot> Initialized;
+
+    public void Init(Resources.Vector3 dotPos, Dot referenceDot = null)
     {
-        transform.position = new Vector3((float)_x, (float)_y, (float)_z) / _scale;
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, _radius);
+        _position = dotPos;
+        _referenceDot = referenceDot;
+        if (_referenceDot != null)
+        {
+            Vector3 offset = (Vector3)(_position - _referenceDot.GetPosition());
+            transform.localPosition = _referenceDot.transform.localPosition + offset;
+        }
+        else
+            transform.localPosition = Vector3.zero;
+
+        Vector3 pos = transform.localPosition;
+        pos.z = -1;
+        transform.localPosition = pos;
+        Initialized?.Invoke(this);
     }
 }
+
+
