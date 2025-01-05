@@ -13,19 +13,16 @@ public class TriangleFinder
             {
                 var edge1 = edges[i];
                 var edge2 = edges[j];
-
-                // Ищем общую точку между двумя рёбрами
+                
                 Dot commonDot = FindCommonDot(edge1, edge2);
                 if (commonDot == null)
                     continue;
                 
                 Dot first = edge1.Item1 == commonDot ? edge1.Item2 : edge1.Item1;
                 Dot second = edge2.Item1 == commonDot ? edge2.Item2 : edge2.Item1;
-
-                // Проверяем, существует ли ребро между оставшимися точками
+                
                 if (edges.Any(e => (e.Item1 == first && e.Item2 == second) || (e.Item1 == second && e.Item2 == first)))
                 {
-                    // Убедиться, что треугольник уникален (не дублируется)
                     if (!triangles.Any(t => IsSameTriangle(t, (commonDot, first, second))))
                     {
                         triangles.Add((commonDot, first, second));

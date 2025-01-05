@@ -8,12 +8,12 @@ using Vector3 = Resources.Vector3;
 
 public class DotsLoader : MonoBehaviour
 {
-    private const string PATH = @"/Resources/Dots.txt";
-    private string PATH_TO_FILE = Application.dataPath + PATH;
     [SerializeField] private Dot _dotPrefab;
     [SerializeField] private Transform _dotContainer;
     [SerializeField] private Material _dotMaterial;
     [SerializeField] private Material _refetenceDotMaterial;
+    
+
     private void Start()
     {
         Load();
@@ -21,7 +21,7 @@ public class DotsLoader : MonoBehaviour
 
     public void Load()
     {
-        var lines = File.ReadAllLines(PATH_TO_FILE);
+        var lines = File.ReadAllLines(FilePath.DOTS_PATH);
         var dotPositions = GetDotPositions(lines);
         var referenceDot = Instantiate(_dotPrefab,_dotContainer);
         referenceDot.name = "ОП";

@@ -132,3 +132,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textPrefab: {fileID: 4632300254414516655, guid: 09104f5607c83c24a8a8d70da2fc1ce8, type: 3}
+  _offset: {x: 0, y: 0.5}

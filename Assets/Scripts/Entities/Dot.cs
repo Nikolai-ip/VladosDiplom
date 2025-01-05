@@ -2,6 +2,7 @@ using System;
 using TMPro;using Unity.VisualScripting;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
+[Serializable]
 public class Dot : MonoBehaviour
 {
     private Resources.Vector3 _position;
@@ -26,6 +27,12 @@ public class Dot : MonoBehaviour
         transform.localPosition = pos;
         Initialized?.Invoke(this);
     }
+
+    public static Resources.Vector3 operator +(Dot a, Dot b)
+    {
+        return a.GetPosition()+b.GetPosition();
+    }
+
 }
 
 
